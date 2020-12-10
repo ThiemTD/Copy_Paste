@@ -4,22 +4,12 @@
 SearchEnum::SearchEnum()
 {
 	Initialize();
-<<<<<<< HEAD
 	ReadListFileInFolder(inSample);
 	ProcessWriteFile();
-=======
-	GetLineFromInFiles();
-	GetFIDList(sampleLine);
-	WriteToFile(targetFile);
->>>>>>> 45062c4d20dde0b0c6124a8c2b904e3a945f1f96
 }
 
 SearchEnum::~SearchEnum()
 {
-<<<<<<< HEAD
-=======
-	sampleLine.clear();
->>>>>>> 45062c4d20dde0b0c6124a8c2b904e3a945f1f96
 	fidList.clear();
 	m_mapEnum.clear();
 }
@@ -31,7 +21,6 @@ void SearchEnum::Initialize()
 	startFilter = temp;
 	GetPrivateProfileString("Settings", "EndFilter", "", temp, sizeof(temp), ".\\CPConfig.ini");
 	endFilter = temp;
-<<<<<<< HEAD
 	GetPrivateProfileString("Settings", "InputFolder", "", temp, sizeof(temp), ".\\CPConfig.ini");
 	inSample = temp;
 	GetPrivateProfileString("Settings", "InSourceFile", "", temp, sizeof(temp), ".\\CPConfig.ini");
@@ -67,33 +56,7 @@ void SearchEnum::SetMapEnum()
 	int key;
 	string value;
 	string line;
-	ifstream inSourceFile;
-=======
-	GetPrivateProfileString("Settings", "InSample", "", temp, sizeof(temp), ".\\CPConfig.ini");
-	inSample = temp;
-	GetPrivateProfileString("Settings", "InSource", "", temp, sizeof(temp), ".\\CPConfig.ini");
-	inSource = temp;
-	GetPrivateProfileString("Settings", "TargetFile", "", temp, sizeof(temp), ".\\CPConfig.ini");
-	targetFile = temp;
-}
-
-void SearchEnum::GetLineFromInFiles()
-{	
-	string line;
-	ifstream inSampleFile, inSourceFile;
-	inSampleFile.open(inSample, ios::in);
-
-	while (getline(inSampleFile, line))
-	{
-		if (line.find(startFilter) != -1)
-		{
-			sampleLine.push_back(line);
-		}
-	}
-
-	int key;
-	string value;
->>>>>>> 45062c4d20dde0b0c6124a8c2b904e3a945f1f96
+	fstream inSourceFile;
 	inSourceFile.open(inSource, ios::in);
 	while (getline(inSourceFile, line))
 	{
@@ -105,8 +68,6 @@ void SearchEnum::GetLineFromInFiles()
 			sourceLine.str("");
 		}
 	}
-<<<<<<< HEAD
-	inSourceFile.close();
 }
 
 SVECT SearchEnum::ReadDataFile(string fileName)
@@ -126,11 +87,6 @@ SVECT SearchEnum::ReadDataFile(string fileName)
 	}
 	inFile.close();
 	return vt_line;
-=======
-
-	inSampleFile.close();
-	inSourceFile.close();
->>>>>>> 45062c4d20dde0b0c6124a8c2b904e3a945f1f96
 }
 
 //Get FID list from source code
@@ -139,11 +95,8 @@ void SearchEnum::GetFIDList(SVECT vt_line)
 	string fid;
 	int startPosition;
 	int endPosition;
-<<<<<<< HEAD
+
 	for (int i = 0; i < (int)vt_line.size(); i++)
-=======
-	for (int i = 0; i < vt_line.size(); i++)
->>>>>>> 45062c4d20dde0b0c6124a8c2b904e3a945f1f96
 	{
 		startPosition = vt_line[i].find(startFilter);
 		endPosition = vt_line[i].find(endFilter);
@@ -157,8 +110,6 @@ void SearchEnum::GetFIDList(SVECT vt_line)
 		}
 	}
 }
-
-<<<<<<< HEAD
 void SearchEnum::ProcessWriteFile()
 {
 	for (int i = 0; i < (int)m_listFile.size(); i++)
@@ -178,22 +129,14 @@ void SearchEnum::WriteToFile(string fileName)
 	}
 	fstream outFile;
 	fileName = targetFile + fileName + ".csv";
-=======
-void SearchEnum::WriteToFile(string fileName)
-{
-	fstream outFile;
->>>>>>> 45062c4d20dde0b0c6124a8c2b904e3a945f1f96
+
 	outFile.open(fileName, ios::out);
 	cout << "Write data into file: " << fileName << endl;
 	
 	outFile << "FID\t\t\t\tFID_NAME" << endl;
 	outFile << "===\t\t\t\t========" << endl;
 	ISMAP mapOut;
-<<<<<<< HEAD
 	for (int i = 0; i < (int)fidList.size(); i++)
-=======
-	for (int i = 0; i < fidList.size(); i++)
->>>>>>> 45062c4d20dde0b0c6124a8c2b904e3a945f1f96
 	{
 		for (ISMAP::iterator it = m_mapEnum.begin(); it != m_mapEnum.end(); ++it)
 		{
@@ -203,18 +146,11 @@ void SearchEnum::WriteToFile(string fileName)
 			}
 		}
 	}
-<<<<<<< HEAD
 	//Writr data to output file.
-=======
-
->>>>>>> 45062c4d20dde0b0c6124a8c2b904e3a945f1f96
 	for (ISMAP::iterator it = mapOut.begin(); it != mapOut.end(); ++it)
 	{
 		outFile << it->first << "\t\t\t\t" << it->second << endl;
 	}
-<<<<<<< HEAD
 	fidList.clear();
-=======
->>>>>>> 45062c4d20dde0b0c6124a8c2b904e3a945f1f96
 	outFile.close();
 }
