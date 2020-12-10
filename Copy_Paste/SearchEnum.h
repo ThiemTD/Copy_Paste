@@ -12,6 +12,7 @@ using namespace std;
 
 typedef map<int, string> ISMAP;
 typedef vector<string> SVECT;
+typedef vector<pair<string, string>> PSSVECT;
 
 class SearchEnum
 {
@@ -25,16 +26,17 @@ public:
 	string inSource;
 	string targetFile;
 
-	SVECT sampleLine;
 	SVECT fidList;
 	stringstream sourceLine;
-	vector<pair<string, string>> m_listFile;
+	PSSVECT m_listFile;
 	ISMAP m_mapEnum;
 	
 	void Initialize();
-	void GetLineFromInFiles();
-	void GetFIDList(vector<string> line);
-	void SearchDataFromSource(string line);
-	void WriteToFile(string output);
+	void GetFIDList(SVECT line);
+	void ProcessWriteFile();
+	SVECT ReadDataFile(string fileName);
+	void ReadListFileInFolder(string inputFolder);
+	void SetMapEnum();
+	void WriteToFile(string fileName);
 };
 
